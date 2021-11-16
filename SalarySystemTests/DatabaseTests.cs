@@ -29,13 +29,17 @@ namespace SalarySystem_API.Tests
         [TestMethod()]
         public void ReWriteDocTest()
         {
-            Assert.Fail();
+            var success = Database.ReWriteDoc();
+            Assert.IsTrue(success);
         }
 
         [TestMethod()]
         public void SaveUserTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password");
+            var results = Database.SaveUser(newUser);
+            Assert.IsTrue(results);
         }
 
         [TestMethod()]
@@ -51,7 +55,9 @@ namespace SalarySystem_API.Tests
         [TestMethod()]
         public void GetUsersTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+            var results = admin.GetUsers();//se över test.
+            Assert.IsNotNull(results);
         }
     }
 }
