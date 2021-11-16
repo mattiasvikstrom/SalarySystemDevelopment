@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SalarySystem_API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalarySystem_API.Tests
 {
@@ -29,25 +23,35 @@ namespace SalarySystem_API.Tests
         [TestMethod()]
         public void ReWriteDocTest()
         {
-            Assert.Fail();
+            var success = Database.ReWriteDoc();
+            Assert.IsTrue(success);
         }
 
         [TestMethod()]
         public void SaveUserTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password");
+            var results = Database.SaveUser(newUser);
+            Assert.IsTrue(results);
         }
 
         [TestMethod()]
         public void DeleteUserTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password");
+            var results = admin.DeleteAccount(admin.Username, admin.Password, newUser);
+            Assert.IsTrue(results);
         }
 
         [TestMethod()]
         public void GetUsersTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+            var results = admin.GetUsers();//se över test.
+            Assert.IsNotNull(results);
         }
     }
 }

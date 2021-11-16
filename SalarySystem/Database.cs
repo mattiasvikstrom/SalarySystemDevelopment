@@ -30,15 +30,23 @@ namespace SalarySystem_API
             return doc;
         }
 
-        public static void ReWriteDoc()
+        public static bool ReWriteDoc()
         {
             string temp = "";
-            foreach (var row in doc)
+            try
             {
-                temp += row + "\n";
-            }
+                foreach (var row in doc)
+                {
+                    temp += row + "\n";
+                }
 
-            File.WriteAllText(folderAndFile, temp);
+                File.WriteAllText(folderAndFile, temp);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static bool SaveUser(IUser user)
@@ -61,7 +69,7 @@ namespace SalarySystem_API
                 File.AppendAllText(folderAndFile, insertUser);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

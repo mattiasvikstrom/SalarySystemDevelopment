@@ -48,9 +48,9 @@ namespace DatabaseSalarySystem
                 $"\nFirst Name = {user.FirstName}," +
                 $"\nSurname = {user.Surname}," +
                 $"\nUsername = {user.Username}," +
-                $"\nPassword = {user.Username}," +
+                $"\nPassword = {user.Password}," +
                 $"\nIs Admin = {user.IsAdmin}," +
-                $"\n*"; // * as break point
+                $"\n*\n"; // * as break point :)
 
             CreateFolder(folder);
 

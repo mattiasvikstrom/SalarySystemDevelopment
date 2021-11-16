@@ -62,6 +62,10 @@ namespace SalarySystem_API
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
+            else if(adminUsername == user.Username && adminPassword == user.Password)
+            {
+                if (Database.DeleteUser(user.Id)) return true;
+            }
 
             return false;
         }
