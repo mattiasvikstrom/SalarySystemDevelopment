@@ -41,7 +41,11 @@ namespace SalarySystem_API.Tests
         [TestMethod()]
         public void DeleteUserTest()
         {
-            Assert.Fail();
+            var admin = new Admin();
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password");
+            var results = admin.DeleteAccount(admin.Username, admin.Password, newUser);
+            Assert.IsTrue(results);
         }
 
         [TestMethod()]
