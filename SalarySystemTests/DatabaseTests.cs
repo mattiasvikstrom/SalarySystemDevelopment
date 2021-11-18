@@ -50,7 +50,8 @@ namespace SalarySystem_API.Tests
         public void GetUsersTest()
         {
             var admin = new Admin();
-            var results = admin.GetUsers();//se över test.
+            admin.Login(admin, "Admin1", "Password1234");
+            var results = admin.GetUsers(admin);
             Assert.IsNotNull(results);
         }
     }

@@ -48,9 +48,10 @@ namespace SalarySystem_API
             }
         }
                
-        public IEnumerable<IUser> GetUsers()
+        public IEnumerable<IUser> GetUsers(IUser admin)
         {
-            return Database.GetUsers();
+            if (admin.IsLoggedIn) return Database.GetUsers();
+            else return null;
         }
     }
 }

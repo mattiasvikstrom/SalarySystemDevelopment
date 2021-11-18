@@ -75,12 +75,14 @@ namespace SalarySystem_API
 
         public string GetRole(IUser user)
         {
-            return user.Role;
+            if (user.IsLoggedIn) return user.Role;
+            else return "User needs too be logged in to see role";
         }
 
         public int GetSalary(IUser user)
         {
-            return user.Salary;
+            if (user.IsLoggedIn) return user.Salary;
+            else return 0;
         }
 
         public bool Login(IUser user, string username, string password)

@@ -9,6 +9,7 @@ namespace SalarySystem_API.Tests
         public void GetRoleTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             Database.ClearDoc(admin);
 
             var role = admin.GetRole(admin);
@@ -19,6 +20,7 @@ namespace SalarySystem_API.Tests
         public void GetSalaryTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             Database.ClearDoc(admin);
 
             var salary = admin.GetSalary(admin);
@@ -29,6 +31,7 @@ namespace SalarySystem_API.Tests
         public void LoginSuccessTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             Database.ClearDoc(admin);
 
             var success = admin.Login(admin, "Admin1", "Password1234");
@@ -49,6 +52,7 @@ namespace SalarySystem_API.Tests
         public void LogoutTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             Database.ClearDoc(admin);
             admin.Login(admin, "Admin1", "Password1234");
 
@@ -60,8 +64,9 @@ namespace SalarySystem_API.Tests
         [TestMethod()]
         public void ChangePasswordOnAdminTest()
         {
-            Database.Start();
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
+            Database.Start();
             var newPassword = admin.ChangePassword(admin, "Admin1", "Password1234", "NewPassword123");
             Assert.AreEqual("Admin may not change its own password.", newPassword);
         }
@@ -70,6 +75,7 @@ namespace SalarySystem_API.Tests
         public void ChangePasswordOnUserTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             Database.ClearDoc(admin);
 
             var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password", "Pirate", 10);
@@ -104,6 +110,7 @@ namespace SalarySystem_API.Tests
         public void DeleteAccountTest()
         {
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             var user = admin.CreateUser(GenerateId.GetID(), "John", "Doe", "Johnny", "Password123", "Pirate", 10);
             var success = admin.DeleteAccount(admin.Username, admin.Password, user);
 
@@ -123,9 +130,10 @@ namespace SalarySystem_API.Tests
             };
 
             var admin = new Admin();
+            admin.Login(admin, "Admin1", "Password1234");
             admin.CreateUser(GenerateId.GetID(), "John", "Doe", "Johnny", "Password123", "Pirate", 10);
             admin.CreateUser(GenerateId.GetID(), "Steve", "Doe", "Johnny", "Password123123", "Pirate", 10);
-            var refUser = admin.GetUsers();
+            var refUser = admin.GetUsers(admin);
 
             Assert.ReferenceEquals(testUser, refUser);
         }
