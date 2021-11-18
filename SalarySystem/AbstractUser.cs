@@ -10,6 +10,7 @@ namespace SalarySystem_API
         public string Surname { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public bool IsLoggedIn { get; set; }
 
         /// <summary>
         /// Changes the password of a user.
@@ -62,12 +63,34 @@ namespace SalarySystem_API
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
-            else if(adminUsername == user.Username && adminPassword == user.Password)
+            else if (adminUsername == user.Username && adminPassword == user.Password)
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
 
             return false;
+        }
+
+        public bool Login(IUser user, string username, string password)
+        {
+            if (user.IsLoggedIn) return true;
+            else if (!user.IsLoggedIn && user.Username == username && user.Password == password)
+            {
+                user.IsLoggedIn = true;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool Logout(IUser user)
+        {
+            if (user.IsLoggedIn)
+            {
+                user.IsLoggedIn = false;
+                return true;
+            }
+
+            else return false;
         }
     }
 }

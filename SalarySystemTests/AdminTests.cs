@@ -6,6 +6,38 @@ namespace SalarySystem_API.Tests
     public class AdminTests
     {
         [TestMethod()]
+        public void LoginSuccessTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var success = admin.Login(admin, "Admin1", "Password1234");
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public void LoginFailTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var success = admin.Login(admin, "Admin1", "Password123444444");
+            Assert.IsFalse(success);
+        }
+
+        [TestMethod()]
+        public void LogoutTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+            admin.Login(admin, "Admin1", "Password1234");
+
+            var success = admin.Logout(admin);
+            Assert.IsTrue(success);
+        }
+
+
+        [TestMethod()]
         public void ChangePasswordOnAdminTest()
         {
             Database.Start();

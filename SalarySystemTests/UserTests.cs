@@ -6,6 +6,40 @@ namespace SalarySystem_API.Tests
     public class UserTests
     {
         [TestMethod()]
+        public void LoginSuccessTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "MyUsername", "MyPassword");
+            var success = newUser.Login(newUser, "MyUsername", "MyPassword");
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public void LoginFailTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "MyUsername", "MyPassword");
+            var success = newUser.Login(newUser, "MyUsername", "ASDFASDASD");
+            Assert.IsFalse(success);
+        }
+
+        [TestMethod()]
+        public void LogoutTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "MyUsername", "MyPassword");
+            newUser.Login(newUser, "MyUsername", "MyPassword");
+            var success = newUser.Logout(newUser);
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
         public void ChangePasswordTest()
         {
             var admin = new Admin();
