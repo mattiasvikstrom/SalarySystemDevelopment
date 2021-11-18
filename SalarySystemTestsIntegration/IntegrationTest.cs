@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SalarySystem_API;
 
-namespace SalarySystem_API.Tests.Integration
+namespace SalarySystem_API.TestsIntegration
 {
     [TestClass()]
     public class IntegrationTest
