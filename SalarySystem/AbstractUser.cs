@@ -11,6 +11,8 @@ namespace SalarySystem_API
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsLoggedIn { get; set; }
+        public int Salary { get; set; }
+        public string Role { get; set; }
 
         /// <summary>
         /// Changes the password of a user.
@@ -69,6 +71,16 @@ namespace SalarySystem_API
             }
 
             return false;
+        }
+
+        public string GetRole(IUser user)
+        {
+            return user.Role;
+        }
+
+        public int GetSalary(IUser user)
+        {
+            return user.Salary;
         }
 
         public bool Login(IUser user, string username, string password)

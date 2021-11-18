@@ -18,8 +18,10 @@ namespace SalarySystem_API
         public new string Surname { get; set; } = "Admin1";
         public new string Username { get; set; } = "Admin1";
         public new string Password { get; set; } = "Password1234";
+        public new string Role { get; set; } = "Administrator";
+        public new int Salary { get; set; } = 30000;
 
-        public User CreateUser(string id, string firstName, string surname, string username, string password)
+        public User CreateUser(string id, string firstName, string surname, string username, string password, string role, int salary)
         {
             try
             {
@@ -29,7 +31,9 @@ namespace SalarySystem_API
                     FirstName = firstName,
                     Surname = surname,
                     Username = username,
-                    Password = password
+                    Password = password,
+                    Role = role,
+                    Salary = salary
                 };
 
                 Database.SaveUser(user);
