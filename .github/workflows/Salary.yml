@@ -49,7 +49,7 @@ jobs:
         with:
           dotnet-version: 5.0.x
       - name: Test integration
-        working-directory: ./SalarySystemTests/Integration
+        working-directory: ./SalarySystemTestsIntegration
         run: dotnet test --verbosity normal
         
   deploy:
