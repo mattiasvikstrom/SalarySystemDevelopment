@@ -73,6 +73,28 @@ namespace SalarySystem_API
             return false;
         }
 
+        public bool EditUser(IUser user, string newFirstName, string newSurname, string newUsername, string newPassword)
+        {
+            if (user.IsLoggedIn && !user.IsAdmin)
+            {
+                user.FirstName = newFirstName;
+                user.Surname = newSurname;
+                user.Username = newUsername;
+                user.Password = newPassword;
+                Database.DeleteUser(user.Id);
+                Database.SaveUser(user);
+                return true;
+            }
+            else if (user.IsLoggedIn && user.IsAdmin)
+            {
+                user.FirstName = newFirstName;
+                user.Surname = newSurname;
+                return true;
+            }
+
+            return false;
+        }
+
         public string GetRole(IUser user)
         {
             if (user.IsLoggedIn) return user.Role;

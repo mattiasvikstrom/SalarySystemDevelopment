@@ -18,5 +18,6 @@
         public int GetSalary(IUser user);
         public bool Login(IUser user, string username, string password);
         public bool Logout(IUser user);
+        public bool EditUser(IUser user, string newFirstName, string newSurname, string newUsername, string newPassword);
     }
 }

@@ -6,10 +6,20 @@ namespace SalarySystem_API.Tests
     public class AdminTests
     {
         [TestMethod()]
-        public void GetRoleTest()
+        public void EditUserTest()
         {
             var admin = new Admin();
             admin.Login(admin, "Admin1", "Password1234");
+
+            var success = admin.EditUser(admin, "Nicklas", "Eriksson", admin.Username, admin.Password);
+            Assert.IsTrue(success);
+        }
+
+        [TestMethod()]
+        public void GetRoleTest()
+        {
+            var admin = new Admin();
+            admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
             var role = admin.GetRole(admin);
@@ -20,7 +30,7 @@ namespace SalarySystem_API.Tests
         public void GetSalaryTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
             var salary = admin.GetSalary(admin);
@@ -31,7 +41,7 @@ namespace SalarySystem_API.Tests
         public void LoginSuccessTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
             var success = admin.Login(admin, "Admin1", "Password1234");
@@ -44,7 +54,7 @@ namespace SalarySystem_API.Tests
             var admin = new Admin();
             Database.ClearDoc(admin);
 
-            var success = admin.Login(admin, "Admin1", "Password123444444");
+            var success = admin.Login(admin, admin.Username, "Password123444444");
             Assert.IsFalse(success);
         }
 
@@ -52,9 +62,8 @@ namespace SalarySystem_API.Tests
         public void LogoutTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
-            Database.ClearDoc(admin);
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
+            Database.ClearDoc(admin);            
 
             var success = admin.Logout(admin);
             Assert.IsTrue(success);
@@ -65,7 +74,7 @@ namespace SalarySystem_API.Tests
         public void ChangePasswordOnAdminTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             Database.Start();
             var newPassword = admin.ChangePassword(admin, "Admin1", "Password1234", "NewPassword123");
             Assert.AreEqual("Admin may not change its own password.", newPassword);
@@ -75,7 +84,7 @@ namespace SalarySystem_API.Tests
         public void ChangePasswordOnUserTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
             var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password", "Pirate", 10);
@@ -110,7 +119,7 @@ namespace SalarySystem_API.Tests
         public void DeleteAccountTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             var user = admin.CreateUser(GenerateId.GetID(), "John", "Doe", "Johnny", "Password123", "Pirate", 10);
             var success = admin.DeleteAccount(admin.Username, admin.Password, user);
 
@@ -130,7 +139,7 @@ namespace SalarySystem_API.Tests
             };
 
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, admin.Username, admin.Password);
             admin.CreateUser(GenerateId.GetID(), "John", "Doe", "Johnny", "Password123", "Pirate", 10);
             admin.CreateUser(GenerateId.GetID(), "Steve", "Doe", "Johnny", "Password123123", "Pirate", 10);
             var refUser = admin.GetUsers(admin);
