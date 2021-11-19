@@ -2,6 +2,9 @@
 
 namespace SalarySystem_API
 {
+    /// <summary>
+    /// This class will contain the methods that is shared by users and admins.
+    /// </summary>
     public class AbstractUser : IUser
     {
         public string Id { get; set; }
