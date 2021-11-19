@@ -61,6 +61,13 @@ namespace SalarySystem_API
             }
         }
 
+        /// <summary>
+        /// Admin cant delete a admin account.
+        /// </summary>
+        /// <param name="adminUsername"></param>
+        /// <param name="adminPassword"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public bool DeleteAccount(string adminUsername, string adminPassword, IUser user)
         {
             if (user == null) return false;
