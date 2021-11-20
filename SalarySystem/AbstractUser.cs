@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SalarySystem_API
 {
@@ -39,6 +40,14 @@ namespace SalarySystem_API
 
                 if (username == user.Username && oldPassword == user.Password && newPassword != "")
                 {
+                    if (newPassword.Length < 4)
+                    {
+                        return "Password needs to be for or more letters and digits.";
+                    }
+                    else if (!newPassword.Any(char.IsDigit))
+                    {
+                        return "Password needs to contain a digit.";
+                    }
                     user.Password = newPassword;
                     if (Database.DeleteUser(user.Id))
                     {

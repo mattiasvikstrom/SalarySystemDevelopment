@@ -75,7 +75,7 @@ namespace SalarySystem_API.Tests
         }
 
         [TestMethod()]
-        public void ChangePasswordTest()
+        public void ChangePasswordSuccessTest()
         {
             var admin = new Admin();
             Database.ClearDoc(admin);
@@ -84,6 +84,30 @@ namespace SalarySystem_API.Tests
             newUser.Login(newUser, newUser.Username, newUser.Password);
             var newPassword = newUser.ChangePassword(newUser, "Username", "Password", "NewPassword123");
             Assert.AreEqual("newpassword123", newPassword);
+        }
+
+        [TestMethod()]
+        public void ChangePasswordFailNoDigitTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password", "Pirate", 10);
+            newUser.Login(newUser, newUser.Username, newUser.Password);
+            var res = newUser.ChangePassword(newUser, "Username", "Password", "NewPassword");
+            Assert.AreEqual("Password needs to contain a digit.", res);
+        }
+
+        [TestMethod()]
+        public void ChangePasswordFailToShortPasswordTest()
+        {
+            var admin = new Admin();
+            Database.ClearDoc(admin);
+
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password", "Pirate", 10);
+            newUser.Login(newUser, newUser.Username, newUser.Password);
+            var res = newUser.ChangePassword(newUser, "Username", "Password", "NP1");
+            Assert.AreEqual("Password needs to be for or more letters and digits.", res);
         }
 
         [TestMethod()]
