@@ -2,6 +2,9 @@
 
 namespace SalarySystem_API
 {
+    /// <summary>
+    /// This class will contain the methods that is shared by users and admins.
+    /// </summary>
     public class AbstractUser : IUser
     {
         public string Id { get; set; }
@@ -10,6 +13,9 @@ namespace SalarySystem_API
         public string Surname { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public bool IsLoggedIn { get; set; }
+        public int Salary { get; set; }
+        public string Role { get; set; }
 
         /// <summary>
         /// Changes the password of a user.
@@ -55,6 +61,13 @@ namespace SalarySystem_API
             }
         }
 
+        /// <summary>
+        /// Admin cant delete a admin account.
+        /// </summary>
+        /// <param name="adminUsername"></param>
+        /// <param name="adminPassword"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public bool DeleteAccount(string adminUsername, string adminPassword, IUser user)
         {
             if (user == null) return false;
@@ -62,12 +75,68 @@ namespace SalarySystem_API
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
-            else if(adminUsername == user.Username && adminPassword == user.Password)
+            else if (adminUsername == user.Username && adminPassword == user.Password)
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
 
             return false;
+        }
+
+        public bool EditUser(IUser user, string newFirstName, string newSurname, string newUsername, string newPassword)
+        {
+            if (user.IsLoggedIn && !user.IsAdmin)
+            {
+                user.FirstName = newFirstName;
+                user.Surname = newSurname;
+                user.Username = newUsername;
+                user.Password = newPassword;
+                Database.DeleteUser(user.Id);
+                Database.SaveUser(user);
+                return true;
+            }
+            else if (user.IsLoggedIn && user.IsAdmin)
+            {
+                user.FirstName = newFirstName;
+                user.Surname = newSurname;
+                return true;
+            }
+
+            return false;
+        }
+
+        public string GetRole(IUser user)
+        {
+            if (user.IsLoggedIn) return user.Role;
+            else return "User needs too be logged in to see role";
+        }
+
+        public int GetSalary(IUser user)
+        {
+            if (user.IsLoggedIn) return user.Salary;
+            else return 0;
+        }
+
+        public bool Login(IUser user, string username, string password)
+        {
+            if (user.IsLoggedIn) return true;
+            else if (!user.IsLoggedIn && user.Username == username && user.Password == password)
+            {
+                user.IsLoggedIn = true;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool Logout(IUser user)
+        {
+            if (user.IsLoggedIn)
+            {
+                user.IsLoggedIn = false;
+                return true;
+            }
+
+            else return false;
         }
     }
 }
