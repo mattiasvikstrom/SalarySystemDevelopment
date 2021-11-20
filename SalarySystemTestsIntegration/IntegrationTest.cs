@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SalarySystem_API;
 
 namespace SalarySystem_API.TestsIntegration
 {
@@ -11,7 +10,6 @@ namespace SalarySystem_API.TestsIntegration
         {
             Database.Start();
             var admin = new Admin();
-            //var newPassword = admin.ChangePassword(admin, "Admin1", "Password1234", "NewPassword123");
 
             //login
             admin.Login(admin, "Admin1", "Password1234");
@@ -25,7 +23,7 @@ namespace SalarySystem_API.TestsIntegration
             admin.DeleteAccount("Admin1", "Password1234", user2);
 
             //Change password of 1 user
-            admin.ChangePassword(user1, "MyUsername1", "Password123", "NewPassword");
+            admin.ChangePassword(user1, "MyUsername1", "Password123", "NewPassword1");
 
             //Get users
             var users = admin.GetUsers(admin);

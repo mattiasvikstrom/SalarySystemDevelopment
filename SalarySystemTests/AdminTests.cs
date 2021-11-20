@@ -9,7 +9,7 @@ namespace SalarySystem_API.Tests
         public void EditUserTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, "Admin1", "admin1234");
 
             var success = admin.EditUser(admin, "Nicklas", "Eriksson", admin.Username, admin.Password);
             Assert.IsTrue(success);
@@ -44,7 +44,7 @@ namespace SalarySystem_API.Tests
             admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
-            var success = admin.Login(admin, "Admin1", "Password1234");
+            var success = admin.Login(admin, "Admin1", "admin1234");
             Assert.IsTrue(success);
         }
 
@@ -76,7 +76,7 @@ namespace SalarySystem_API.Tests
             var admin = new Admin();
             admin.Login(admin, admin.Username, admin.Password);
             Database.Start();
-            var newPassword = admin.ChangePassword(admin, "Admin1", "Password1234", "NewPassword123");
+            var newPassword = admin.ChangePassword(admin, "Admin1", "admin1234", "NewPassword123");
             Assert.AreEqual("Admin may not change its own password.", newPassword);
         }
 
@@ -87,8 +87,8 @@ namespace SalarySystem_API.Tests
             admin.Login(admin, admin.Username, admin.Password);
             Database.ClearDoc(admin);
 
-            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password", "Pirate", 10);
-            var newPassword = admin.ChangePassword(newUser, "Username", "Password", "NewPassword123");
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Nick", "Erik", "Username", "Password1", "Pirate", 10);
+            var newPassword = admin.ChangePassword(newUser, "Username", "Password1", "NewPassword123");
             Assert.AreEqual("newpassword123", newPassword);
         }
 

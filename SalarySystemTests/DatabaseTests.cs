@@ -31,7 +31,7 @@ namespace SalarySystem_API.Tests
         public void SaveUserTest()
         {
             var admin = new Admin();
-            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password", "Pirate", 10);
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password1", "Pirate", 10);
             var results = Database.SaveUser(newUser);
             Assert.IsTrue(results);
         }
@@ -40,8 +40,8 @@ namespace SalarySystem_API.Tests
         public void DeleteUserTest()
         {
             var admin = new Admin();
-
-            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password", "Pirate", 10);
+            admin.Login(admin, admin.Username, admin.Password);
+            var newUser = admin.CreateUser(GenerateId.GetID(), "Brick", "Rick", "Username", "Password1", "Pirate", 10);
             var results = admin.DeleteAccount(admin.Username, admin.Password, newUser);
             Assert.IsTrue(results);
         }
@@ -50,7 +50,7 @@ namespace SalarySystem_API.Tests
         public void GetUsersTest()
         {
             var admin = new Admin();
-            admin.Login(admin, "Admin1", "Password1234");
+            admin.Login(admin, "Admin1", "admin1234");
             var results = admin.GetUsers(admin);
             Assert.IsNotNull(results);
         }

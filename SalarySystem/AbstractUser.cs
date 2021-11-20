@@ -80,7 +80,7 @@ namespace SalarySystem_API
         public bool DeleteAccount(string adminUsername, string adminPassword, IUser user)
         {
             if (user == null) return false;
-            else if (adminUsername == "Admin1" && adminPassword == "Password1234")
+            else if (adminUsername == "Admin1" && adminPassword == "admin1234")
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
