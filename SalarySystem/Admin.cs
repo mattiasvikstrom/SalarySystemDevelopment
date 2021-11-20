@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SalarySystem_API
 {
@@ -17,7 +18,7 @@ namespace SalarySystem_API
         public new string FirstName { get; set; } = "Admin1";
         public new string Surname { get; set; } = "Admin1";
         public new string Username { get; set; } = "Admin1";
-        public new string Password { get; set; } = "Password1234";
+        public new string Password { get; set; } = "admin1234";
         public new string Role { get; set; } = "Administrator";
         public new int Salary { get; set; } = 30000;
 
@@ -25,6 +26,10 @@ namespace SalarySystem_API
         {
             try
             {
+                if (!password.Any(char.IsDigit))
+                {
+                    return null;
+                }
                 var user = new User
                 {
                     Id = id,

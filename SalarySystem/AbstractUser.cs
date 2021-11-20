@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SalarySystem_API
 {
@@ -39,6 +40,14 @@ namespace SalarySystem_API
 
                 if (username == user.Username && oldPassword == user.Password && newPassword != "")
                 {
+                    if (newPassword.Length < 4)
+                    {
+                        return "Password needs to be for or more letters and digits.";
+                    }
+                    else if (!newPassword.Any(char.IsDigit))
+                    {
+                        return "Password needs to contain a digit.";
+                    }
                     user.Password = newPassword;
                     if (Database.DeleteUser(user.Id))
                     {
@@ -71,7 +80,7 @@ namespace SalarySystem_API
         public bool DeleteAccount(string adminUsername, string adminPassword, IUser user)
         {
             if (user == null) return false;
-            else if (adminUsername == "Admin1" && adminPassword == "Password1234")
+            else if (adminUsername == "Admin1" && adminPassword == "admin1234")
             {
                 if (Database.DeleteUser(user.Id)) return true;
             }
